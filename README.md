@@ -37,6 +37,12 @@ This repository’s README intentionally does **not** provide operational instru
 - Python 3.8+ recommended
 - Uses only standard-library modules (Tkinter included)
 
+## Repository contents
+
+- `obstacle_game.py`: Tkinter game UI + educational cybersecurity demo logic
+- `cleanup.py`: targeted cleanup utility (Windows + Linux/Kali; limited macOS support)
+- `dist/cleanup.exe`: optional packaged cleanup executable (if you build it)
+
 ## Run (game UI)
 
 From the project directory:
@@ -44,6 +50,39 @@ From the project directory:
 ```bash
 python obstacle_game.py
 ```
+
+## Cleanup tool
+
+This repository includes a **targeted cleanup tool** intended to remove only the persistence/artifacts that `obstacle_game.py` creates.
+
+### Dry run (recommended)
+
+Prints what would be removed, without changing anything:
+
+```bash
+python cleanup.py --dry-run
+```
+
+### Run cleanup
+
+```bash
+python cleanup.py
+```
+
+Notes:
+
+- On Windows, run from an **Administrator** terminal for best results.
+- On Kali/Linux, `crontab` must be available and you must have permission to edit your user crontab.
+
+## Packaging (optional)
+
+If you want a single-file Windows executable for the cleanup tool:
+
+```bash
+pyinstaller --onefile cleanup.py
+```
+
+The output will be in `dist/`.
 
 ## Controls
 
@@ -70,6 +109,16 @@ Run from a terminal to capture exceptions:
 
 ```bash
 python obstacle_game.py
+```
+
+### Cleanup reports "Access is denied" on Windows
+
+Run `cleanup.py` (or `cleanup.exe`) from an elevated terminal (Run as Administrator). Some operations (process inspection, services, and certain registry keys) require admin privileges.
+
+If you are unsure, start with a dry run:
+
+```bash
+python cleanup.py --dry-run
 ```
 
 ### Safety: I only want the game
